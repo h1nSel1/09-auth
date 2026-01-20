@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from "@/lib/api/clientApi";
 import css from "./NoteDetails.module.css";
 
 interface NoteDetailsClientProps {
@@ -24,6 +24,7 @@ export default function NoteDetailsClient({ id }: NoteDetailsClientProps) {
   }
 
   if (error || !note) {
+    console.log("error", error);
     return <p>Something went wrong.</p>;
   }
 

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { TanStackProvider } from "@/components/TanStackProvider/TanStackProvider";
-import { Header } from "@/components/Header/Header";
+import Header from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
+import { AuthProvider } from "@/components/AuthProvider/AuthProvider";
+import React from "react";
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NoteHub",
     description: "Simple and efficient note management application",
-    url: "https://07-routing-nextjs-chi-lemon.vercel.app",
+    url: "http://localhost:3000",
     siteName: "NoteHub",
     images: [
       {
@@ -31,25 +33,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
-}: Readonly<{
+}: {
   children: React.ReactNode;
   modal: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        suppressHydrationWarning
-        className={`${roboto.variable} ${roboto.variable}`}
-      >
+    <html lang="en" className={roboto.variable}>
+      <body className="antialiased" suppressHydrationWarning>
         <TanStackProvider>
-          <Header />
-          <main>
-            {children} {modal}
-          </main>
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main>{children}</main>
+            {modal}
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
