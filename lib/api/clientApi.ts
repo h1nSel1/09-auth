@@ -23,17 +23,17 @@ export const updateMe = async (data: { username: string }): Promise<User> => {
   return response.data;
 };
 
-export const login = async (data: LoginCredentials) => {
+export const login = async (data: LoginCredentials): Promise<User> => {
   const response = await api.post<User>("/auth/login", data);
   return response.data;
 };
 
-export const register = async (data: RegisterCredentials) => {
+export const register = async (data: RegisterCredentials): Promise<User> => {
   const response = await api.post<User>("/auth/register", data);
   return response.data;
 };
 
-export const logout = async () => {
+export const logout = async (): Promise<void> => {
   await api.post("/auth/logout");
 };
 
@@ -45,17 +45,15 @@ export const fetchNotes = async (
 };
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
-  console.log("here");
   const response = await api.get<Note>(`/notes/${id}`);
-  console.log("responsedata", response.data);
   return response.data;
 };
 
-export const createNote = async (data: NewNote) => {
+export const createNote = async (data: NewNote): Promise<Note> => {
   const response = await api.post<Note>("/notes", data);
   return response.data;
 };
 
-export const deleteNote = async (id: string) => {
+export const deleteNote = async (id: string): Promise<void> => {
   await api.delete(`/notes/${id}`);
 };
